@@ -1,0 +1,30 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-family: 'Lato', sans-serif;
+  height: 65px;
+}
+
+.nav-title a {
+  text-decoration: none;
+  color: lightslategray;
+  font-size: 2em;
+}
+
+.nav-links {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  min-width: 468px;
+}
+
+.nav-links li {
+  list-style-type: none;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  font-size: 1.4em;
+}
