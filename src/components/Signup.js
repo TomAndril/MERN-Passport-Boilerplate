@@ -11,7 +11,7 @@ const Signup = () => {
   const handleSubmit = e => {
     e.preventDefault();
     axios
-      .post("/user", { username: username, password: password, email: email })
+      .post("/user/signup", { username: username, password: password, email: email })
       .then(res => {
         console.log(res);
         if (res.data.error) {

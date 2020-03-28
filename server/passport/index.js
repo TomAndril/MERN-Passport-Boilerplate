@@ -3,20 +3,13 @@ const LocalStrategy = require("./localStrategy");
 const User = require("../database/models/user");
 
 passport.serializeUser((user, done) => {
-  console.log("*** serializeUser called, user: ");
-  console.log(user); // the whole raw user object!
-  console.log("---------");
+  console.log('Serializing User')
   done(null, user._id);
 });
 
-// user object attaches to the request as req.user
 passport.deserializeUser((id, done) => {
-  console.log(id)
-  console.log("DeserializeUser called");
   User.findOne({ _id: id }, (err, user) => {
-    console.log("*** Deserialize user, user:");
-    console.log(user);
-    console.log("--------------");
+    console.log('Deserializing User');
     done(null, user);
   });
 });

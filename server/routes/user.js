@@ -3,12 +3,12 @@ const router = express.Router();
 const User = require("../database/models/user");
 const passport = require("../passport");
 
-router.post("/", (req, res) => {
+router.post("/signup", (req, res) => {
   // USER SIGNUP
   const { username, password, email } = req.body;
   User.findOne({ username: username }, (err, user) => {
     if (err) {
-      console.log(`User.js error: ${err}`);
+      console.log(`Whoops! There was an error: ${err}`);
     } else if (user) {
       res.json({
         error: `Sorry, this username is already taken: ${username}`
@@ -28,32 +28,25 @@ router.post("/", (req, res) => {
 });
 
 // USER LOGIN
-router.post(
-  "/login",
-  function(req, res, next) {
-    console.log("routes/user.js, login, req.body: ");
-    console.log(req.body)
-    next();
-  },
-  passport.authenticate("local"),
-  (req, res, next) => {
-    console.log("logged in", req.user);
-    res.send(req.user);
-  }
-)
+router.post("/login", passport.authenticate("local"), (req, res, next) => {
+  console.log("logged in", req.user);
+  res.send(req.user);
+});
 
-router.get('/', (req, res, next) => {
-  console.log('===== user!!======')
-  console.log(req.user)
+// GETING DATA FROM LOGGED USER
+router.get("/", (req, res, next) => {
+  console.log("===== user!!======");
+  console.log(req.user);
   if (req.user) {
-      res.json({ user: req.user })
+    res.json({ user: req.user });
   } else {
-      res.json({ user: null })
+    res.json({ user: null });
   }
-})
+});
 
+// LOGGING OUT
 router.post("/logout", (req, res) => {
-  console.log(req.user)
+  console.log(req.user);
   if (req.user) {
     req.logout();
     req.session.destroy();
